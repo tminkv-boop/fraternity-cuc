@@ -3,17 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Voices of Resistance & Justice — Poster Exhibition</title>
+  <title>Fraternity Movement | University of Calicut</title>
+  
+  <!-- Google Fonts for Bold Display & Clean Body Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg-color: #0f1115;
-      --card-bg: #1a1d24;
-      --text-main: #f0f2f5;
+      --bg-dark: #0d0f12;
+      --card-bg: #161920;
+      --text-light: #f3f4f6;
       --text-muted: #9ca3af;
-      --accent: #e63946;
-      --accent-hover: #d62828;
-      --tag-bg: #2a2e39;
-      --border-color: #2e3440;
+      --accent-red: #e63946;
+      --border-color: #2a2e39;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     * {
@@ -23,481 +29,599 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      font-family: var(--font-body);
       line-height: 1.6;
-      padding: 20px;
+      padding: 0;
+      margin: 0;
     }
 
-    header {
-      max-width: 1200px;
-      margin: 40px auto 30px;
-      text-align: center;
+    /* Top Navigation Header */
+    header.top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 24px 20px 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-bottom: 2px solid var(--border-color);
     }
 
-    header h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: #ffffff;
-      margin-bottom: 15px;
-      letter-spacing: -0.5px;
-    }
-
-    .overview-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--accent);
-      border-radius: 8px;
-      padding: 25px;
-      max-width: 900px;
-      margin: 0 auto 40px;
-      text-align: left;
-    }
-
-    .overview-card h2 {
-      font-size: 1.25rem;
-      margin-bottom: 10px;
-      color: var(--accent);
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      line-height: 0.95;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
-    .overview-card p {
-      color: #d1d5db;
-      font-size: 1rem;
-      line-height: 1.7;
+    .brand-title span {
+      display: block;
     }
 
-    /* Category Filter Buttons */
-    .filter-container {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-
-    .filter-btn {
-      background-color: var(--card-bg);
-      color: var(--text-muted);
-      border: 1px solid var(--border-color);
-      padding: 10px 20px;
-      border-radius: 30px;
-      cursor: pointer;
+    .brand-location {
       font-size: 0.95rem;
+      color: var(--text-muted);
+      text-align: right;
+      font-weight: 500;
+      max-width: 160px;
+      line-height: 1.3;
+    }
+
+    /* Hero Banner Section */
+    .hero-section {
+      max-width: 1100px;
+      margin: 40px auto 30px;
+      padding: 0 20px;
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: 4.8rem;
+      line-height: 0.88;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+
+    .hero-headline .highlight-red {
+      color: var(--accent-red);
+      display: block;
+    }
+
+    .hero-headline span {
+      display: block;
+    }
+
+    .hero-description {
+      font-size: 1.15rem;
+      color: #d1d5db;
+      max-width: 650px;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .btn-view {
+      display: inline-block;
+      background-color: #ffffff;
+      color: #000000;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      cursor: pointer;
+    }
+
+    .btn-view:hover {
+      background-color: #e5e7eb;
+    }
+
+    /* Filter Category Pills */
+    .filter-wrapper {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-pill {
+      background: transparent;
+      color: var(--text-light);
+      border: 1.5px solid var(--border-color);
+      padding: 10px 18px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
       font-weight: 600;
-      transition: all 0.25s ease;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s ease;
     }
 
-    .filter-btn:hover,
-    .filter-btn.active {
-      background-color: var(--accent);
-      color: #ffffff;
-      border-color: var(--accent);
+    .filter-pill:hover {
+      border-color: #ffffff;
     }
 
-    /* Poster Grid */
+    .filter-pill.active {
+      background-color: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+
+    /* Poster Gallery Grid */
+    .gallery-container {
+      max-width: 1100px;
+      margin: 40px auto 60px;
+      padding: 0 20px;
+    }
+
     .poster-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 25px;
-      max-width: 1300px;
-      margin: 0 auto 60px;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 24px;
     }
 
     .poster-card {
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 12px;
+      border-radius: 4px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .poster-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-    }
-
-    .poster-img-wrapper {
-      position: relative;
-      width: 100%;
-      padding-top: 133%; /* 3:4 aspect ratio */
-      background-color: #111;
-      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease;
       cursor: pointer;
     }
 
-    .poster-img-wrapper img {
-      position: absolute;
-      top: 0;
-      left: 0;
+    .poster-card:hover {
+      transform: translateY(-4px);
+      border-color: #4b5563;
+    }
+
+    .poster-img-box {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background-color: #000;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .poster-img-box img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
+      display: block;
+      transition: transform 0.3s ease;
     }
 
-    .poster-card:hover .poster-img-wrapper img {
-      transform: scale(1.04);
+    .poster-card:hover .poster-img-box img {
+      transform: scale(1.03);
     }
 
-    .poster-info {
-      padding: 18px;
+    .poster-details {
+      padding: 14px;
       display: flex;
       flex-direction: column;
-      flex-grow: 1;
+      gap: 6px;
     }
 
-    .category-tag {
-      align-self: flex-start;
-      background-color: var(--tag-bg);
-      color: var(--accent);
-      font-size: 0.75rem;
+    .poster-tag {
+      font-size: 0.7rem;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 4px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 10px;
+      color: var(--accent-red);
     }
 
-    .poster-info h3 {
-      font-size: 1.1rem;
-      color: #ffffff;
+    .poster-title {
+      font-size: 0.95rem;
       font-weight: 600;
-      line-height: 1.4;
+      color: #ffffff;
+      line-height: 1.35;
+    }
+
+    /* About Section */
+    .about-section {
+      border-top: 2px solid var(--border-color);
+      max-width: 1100px;
+      margin: 60px auto 0;
+      padding: 50px 20px 40px;
+    }
+
+    .about-section h2 {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .about-section p {
+      font-size: 1.05rem;
+      color: #d1d5db;
+      max-width: 750px;
+      line-height: 1.6;
+    }
+
+    /* Footer Section */
+    footer.bottom-bar {
+      background-color: #f3f4f6;
+      color: #111827;
+      padding: 20px;
+      margin-top: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    footer.bottom-bar .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     /* Lightbox Modal */
-    .modal {
+    .modal-overlay {
       display: none;
       position: fixed;
-      z-index: 1000;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 1000;
       justify-content: center;
       align-items: center;
       padding: 20px;
     }
 
-    .modal img {
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-overlay img {
       max-width: 90%;
       max-height: 90vh;
-      border-radius: 6px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     }
 
-    .modal-close {
+    .modal-close-btn {
       position: absolute;
-      top: 25px;
-      right: 35px;
-      color: #fff;
-      font-size: 35px;
+      top: 20px;
+      right: 30px;
+      color: #ffffff;
+      font-size: 2.5rem;
       font-weight: bold;
       cursor: pointer;
+      line-height: 1;
     }
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border-color);
-      max-width: 1200px;
-      margin: 0 auto;
-      font-size: 0.9rem;
+    /* Responsive Tweaks */
+    @media (max-width: 600px) {
+      .hero-headline {
+        font-size: 3.6rem;
+      }
+      .brand-title {
+        font-size: 1.8rem;
+      }
+      .filter-pill {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Voices of Resistance & Justice</h1>
-    
-    <!-- Revised Overview (CUK references removed) -->
-    <div class="overview-card">
-      <h2>Exhibition Overview</h2>
-      <p>
-        This digital exhibition curates visual archives, solidarity posters, and biographical profiles documenting ongoing struggles for human rights, constitutional freedoms, political prisoners, and resistance against systemic discrimination. It serves as an archive of memory, dissent, and collective solidarity across academic campuses, grassroots movements, and international human rights causes.
-      </p>
+  <!-- Top Header Navigation Bar -->
+  <header class="top-bar">
+    <div class="brand-title">
+      <span>Fraternity</span>
+      <span>Movement</span>
     </div>
-
-    <!-- Category Filter Controls -->
-    <div class="filter-container">
-      <button class="filter-btn active" onclick="filterCategory('all')">All Posters</button>
-      <button class="filter-btn" onclick="filterCategory('political-prisoners')">Political Prisoners</button>
-      <button class="filter-btn" onclick="filterCategory('justice-and-memory')">Justice & Memory</button>
-      <button class="filter-btn" onclick="filterCategory('movements-and-resistance')">Movements & Resistance</button>
+    <div class="brand-location">
+      University of Calicut
     </div>
   </header>
 
-  <main>
+  <!-- Hero Intro Banner Section -->
+  <section class="hero-section">
+    <h1 class="hero-headline">
+      <span>REMEMBER.</span>
+      <span class="highlight-red">QUESTION.</span>
+      <span>DOCUMENT.</span>
+    </h1>
+    
+    <p class="hero-description">
+      Posters from Fraternity Movement at the University of Calicut on resistance, political prisoners and the people whose struggles we keep in view.
+    </p>
+
+    <a href="#posters-gallery" class="btn-view">View posters</a>
+  </section>
+
+  <!-- Category Filter Buttons -->
+  <div class="filter-wrapper" id="posters-gallery">
+    <button class="filter-pill active" onclick="filterCategory('all', this)">All 23</button>
+    <button class="filter-pill" onclick="filterCategory('palestine', this)">Palestine</button>
+    <button class="filter-pill" onclick="filterCategory('political-prisoners', this)">Political prisoners</button>
+    <button class="filter-pill" onclick="filterCategory('campus-and-protest', this)">Campus and protest</button>
+    <button class="filter-pill" onclick="filterCategory('justice-and-memory', this)">Justice and memory</button>
+  </div>
+
+  <!-- Main Poster Grid Section -->
+  <main class="gallery-container">
     <div class="poster-grid">
 
-      <!-- ================= POLITICAL PRISONERS ================= -->
-      <div class="poster-card" data-category="political-prisoners">
-        <div class="poster-img-wrapper" onclick="openModal('prisoner-1.jpg')">
-          <img src="prisoner-1.jpg" alt="Prof. Hany Babu" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Political Prisoners</span>
-          <h3>Prof. Hany Babu</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="political-prisoners">
-        <div class="poster-img-wrapper" onclick="openModal('prisoner-2.jpg')">
-          <img src="prisoner-2.jpg" alt="Umar Khalid" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Political Prisoners</span>
-          <h3>Umar Khalid</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="political-prisoners">
-        <div class="poster-img-wrapper" onclick="openModal('prisoner-3.jpg')">
-          <img src="prisoner-3.jpg" alt="Father Stan Swamy" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Political Prisoners</span>
-          <h3>Father Stan Swamy (1937 - 2021)</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="political-prisoners">
-        <div class="poster-img-wrapper" onclick="openModal('prisoner-4.jpg')">
-          <img src="prisoner-4.jpg" alt="Stand with Political Prisoners" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Political Prisoners</span>
-          <h3>Solidarity with Political Prisoners</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="political-prisoners">
-        <div class="poster-img-wrapper" onclick="openModal('prisoner-5.jpg.jpg')">
-          <img src="prisoner-5.jpg.jpg" alt="G.N. Saibaba" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Political Prisoners</span>
-          <h3>G.N. Saibaba (1967 - 2024)</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="political-prisoners">
-        <div class="poster-img-wrapper" onclick="openModal('prisoner-6.jpg.jpg')">
-          <img src="prisoner-6.jpg.jpg" alt="Gulfisa Fathima" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Political Prisoners</span>
-          <h3>Gulfisa Fathima — A Voice for Justice</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="political-prisoners">
-        <div class="poster-img-wrapper" onclick="openModal('prisoner-7.jpg.jpg')">
-          <img src="prisoner-7.jpg.jpg" alt="Sharjeel Imam" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Political Prisoners</span>
-          <h3>Sharjeel Imam (1987 - Present)</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="political-prisoners">
-        <div class="poster-img-wrapper" onclick="openModal('prisoner-8.jpg.jpg')">
-          <img src="prisoner-8.jpg.jpg" alt="All India Political Prisoners Day" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Political Prisoners</span>
-          <h3>All India Political Prisoners' Day (September 13)</h3>
-        </div>
-      </div>
-
-
-      <!-- ================= JUSTICE & MEMORY ================= -->
-      <div class="poster-card" data-category="justice-and-memory">
-        <div class="poster-img-wrapper" onclick="openModal('justice-1.jpg')">
-          <img src="justice-1.jpg" alt="Gauri Lankesh" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Justice & Memory</span>
-          <h3>Gauri Lankesh (1962 - 2017)</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="justice-and-memory">
-        <div class="poster-img-wrapper" onclick="openModal('justice-2.jpg.jpg')">
-          <img src="justice-2.jpg.jpg" alt="Voices Against Injustice" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Justice & Memory</span>
-          <h3>Voices Against Injustice & Impunity</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="justice-and-memory">
-        <div class="poster-img-wrapper" onclick="openModal('justice-3.jpg.jpg')">
-          <img src="justice-3.jpg.jpg" alt="Dissent and Democracy" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Justice & Memory</span>
-          <h3>Dissent, Democracy, and Human Rights</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="justice-and-memory">
-        <div class="poster-img-wrapper" onclick="openModal('justice-4.jpg.jpg')">
-          <img src="justice-4.jpg.jpg" alt="Social Justice Principles" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Justice & Memory</span>
-          <h3>Social Justice & Institutional Reform</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="justice-and-memory">
-        <div class="poster-img-wrapper" onclick="openModal('justice-5.jpg.jpg')">
-          <img src="justice-5.jpg.jpg" alt="Campus Democracy" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Justice & Memory</span>
-          <h3>Campus Democracy & Student Freedoms</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="justice-and-memory">
-        <div class="poster-img-wrapper" onclick="openModal('justice-6.jpg.jpg')">
-          <img src="justice-6.jpg.jpg" alt="Against Discrimination" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Justice & Memory</span>
-          <h3>Resistance Against Institutional Discrimination</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="justice-and-memory">
-        <div class="poster-img-wrapper" onclick="openModal('justice-7.jpg.jpg')">
-          <img src="justice-7.jpg.jpg" alt="Nithin Raj" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Justice & Memory</span>
-          <h3>Nithin Raj (2003 - 2024)</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="justice-and-memory">
-        <div class="poster-img-wrapper" onclick="openModal('justice-8.jpg.jpg')">
-          <img src="justice-8.jpg.jpg" alt="Malcolm X" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Justice & Memory</span>
-          <h3>Malcolm X (1925 - 1965)</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="justice-and-memory">
-        <div class="poster-img-wrapper" onclick="openModal('justice-9.jpg.jpg')">
-          <img src="justice-9.jpg.jpg" alt="E.V. Ramasamy Periyar" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Justice & Memory</span>
-          <h3>E.V. Ramasamy (Periyar) (1879 - 1973)</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="justice-and-memory">
-        <div class="poster-img-wrapper" onclick="openModal('justice-10.jpg.jpg')">
-          <img src="justice-10.jpg.jpg" alt="Bilkis Bano" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Justice & Memory</span>
-          <h3>Bilkis Bano — Survivor & Legal Battle for Justice</h3>
-        </div>
-      </div>
-
-
-      <!-- ================= MOVEMENTS & RESISTANCE ================= -->
-      <div class="poster-card" data-category="movements-and-resistance">
-        <div class="poster-img-wrapper" onclick="openModal('protest-1.jpg')">
-          <img src="protest-1.jpg" alt="CAA-NRC Protests" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Movements & Resistance</span>
-          <h3>CAA-NRC Protests (2019-20)</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="movements-and-resistance">
-        <div class="poster-img-wrapper" onclick="openModal('protest-2.jpg')">
-          <img src="protest-2.jpg" alt="Anagha Shashi" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Movements & Resistance</span>
-          <h3>Anagha Shashi — Resistance Against Campus Discrimination</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="movements-and-resistance">
-        <div class="poster-img-wrapper" onclick="openModal('protest-3.jpg')">
-          <img src="protest-3.jpg" alt="Rohith Vemula" loading="lazy">
-        </div>
-        <div class="poster-info">
-          <span class="category-tag">Movements & Resistance</span>
-          <h3>Rohith Vemula (1989 - 2016)</h3>
-        </div>
-      </div>
-
-      <div class="poster-card" data-category="movements-and-resistance">
-        <div class="poster-img-wrapper" onclick="openModal('palestine-1.jpg')">
+      <!-- PALESTINE -->
+      <div class="poster-card" data-category="palestine" onclick="openModal('palestine-1.jpg')">
+        <div class="poster-img-box">
           <img src="palestine-1.jpg" alt="Palestinian Resistance" loading="lazy">
         </div>
-        <div class="poster-info">
-          <span class="category-tag">Movements & Resistance</span>
-          <h3>Palestinian Resistance — Identity, Dignity, Freedom</h3>
+        <div class="poster-details">
+          <span class="poster-tag">Palestine</span>
+          <h3 class="poster-title">Palestinian Resistance — Freedom & Dignity</h3>
         </div>
       </div>
 
-      <div class="poster-card" data-category="movements-and-resistance">
-        <div class="poster-img-wrapper" onclick="openModal('palestine-2.jpg.jpg')">
+      <div class="poster-card" data-category="palestine" onclick="openModal('palestine-2.jpg.jpg')">
+        <div class="poster-img-box">
           <img src="palestine-2.jpg.jpg" alt="Displaced Palestinian Children" loading="lazy">
         </div>
-        <div class="poster-info">
-          <span class="category-tag">Movements & Resistance</span>
-          <h3>Displaced Children of Palestine — Resilience & Rights</h3>
+        <div class="poster-details">
+          <span class="poster-tag">Palestine</span>
+          <h3 class="poster-title">Displaced Children of Palestine</h3>
+        </div>
+      </div>
+
+      <!-- POLITICAL PRISONERS -->
+      <div class="poster-card" data-category="political-prisoners" onclick="openModal('prisoner-1.jpg')">
+        <div class="poster-img-box">
+          <img src="prisoner-1.jpg" alt="Prof. Hany Babu" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Political prisoners</span>
+          <h3 class="poster-title">Prof. Hany Babu</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="political-prisoners" onclick="openModal('prisoner-2.jpg')">
+        <div class="poster-img-box">
+          <img src="prisoner-2.jpg" alt="Umar Khalid" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Political prisoners</span>
+          <h3 class="poster-title">Umar Khalid</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="political-prisoners" onclick="openModal('prisoner-3.jpg')">
+        <div class="poster-img-box">
+          <img src="prisoner-3.jpg" alt="Father Stan Swamy" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Political prisoners</span>
+          <h3 class="poster-title">Father Stan Swamy (1937 - 2021)</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="political-prisoners" onclick="openModal('prisoner-4.jpg')">
+        <div class="poster-img-box">
+          <img src="prisoner-4.jpg" alt="Stand with Political Prisoners" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Political prisoners</span>
+          <h3 class="poster-title">Solidarity with Political Prisoners</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="political-prisoners" onclick="openModal('prisoner-5.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="prisoner-5.jpg.jpg" alt="G.N. Saibaba" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Political prisoners</span>
+          <h3 class="poster-title">G.N. Saibaba (1967 - 2024)</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="political-prisoners" onclick="openModal('prisoner-6.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="prisoner-6.jpg.jpg" alt="Gulfisa Fathima" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Political prisoners</span>
+          <h3 class="poster-title">Gulfisa Fathima</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="political-prisoners" onclick="openModal('prisoner-7.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="prisoner-7.jpg.jpg" alt="Sharjeel Imam" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Political prisoners</span>
+          <h3 class="poster-title">Sharjeel Imam</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="political-prisoners" onclick="openModal('prisoner-8.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="prisoner-8.jpg.jpg" alt="All India Political Prisoners Day" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Political prisoners</span>
+          <h3 class="poster-title">All India Political Prisoners' Day</h3>
+        </div>
+      </div>
+
+      <!-- CAMPUS AND PROTEST -->
+      <div class="poster-card" data-category="campus-and-protest" onclick="openModal('protest-1.jpg')">
+        <div class="poster-img-box">
+          <img src="protest-1.jpg" alt="CAA-NRC Protests" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Campus and protest</span>
+          <h3 class="poster-title">CAA-NRC Protests (2019-20)</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="campus-and-protest" onclick="openModal('protest-2.jpg')">
+        <div class="poster-img-box">
+          <img src="protest-2.jpg" alt="Anagha Shashi" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Campus and protest</span>
+          <h3 class="poster-title">Anagha Shashi — Fight for Institutional Justice</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="campus-and-protest" onclick="openModal('protest-3.jpg')">
+        <div class="poster-img-box">
+          <img src="protest-3.jpg" alt="Rohith Vemula" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Campus and protest</span>
+          <h3 class="poster-title">Rohith Vemula (1989 - 2016)</h3>
+        </div>
+      </div>
+
+      <!-- JUSTICE AND MEMORY -->
+      <div class="poster-card" data-category="justice-and-memory" onclick="openModal('justice-1.jpg')">
+        <div class="poster-img-box">
+          <img src="justice-1.jpg" alt="Gauri Lankesh" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Justice and memory</span>
+          <h3 class="poster-title">Gauri Lankesh (1962 - 2017)</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="justice-and-memory" onclick="openModal('justice-2.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="justice-2.jpg.jpg" alt="Voices Against Injustice" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Justice and memory</span>
+          <h3 class="poster-title">Voices Against Injustice</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="justice-and-memory" onclick="openModal('justice-3.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="justice-3.jpg.jpg" alt="Dissent and Democracy" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Justice and memory</span>
+          <h3 class="poster-title">Dissent, Democracy & Rights</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="justice-and-memory" onclick="openModal('justice-4.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="justice-4.jpg.jpg" alt="Social Justice Principles" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Justice and memory</span>
+          <h3 class="poster-title">Social Justice & Reform</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="justice-and-memory" onclick="openModal('justice-5.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="justice-5.jpg.jpg" alt="Campus Democracy" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Justice and memory</span>
+          <h3 class="poster-title">Campus Democracy & Freedoms</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="justice-and-memory" onclick="openModal('justice-6.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="justice-6.jpg.jpg" alt="Against Discrimination" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Justice and memory</span>
+          <h3 class="poster-title">Against Discrimination</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="justice-and-memory" onclick="openModal('justice-7.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="justice-7.jpg.jpg" alt="Nithin Raj" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Justice and memory</span>
+          <h3 class="poster-title">Nithin Raj (2003 - 2024)</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="justice-and-memory" onclick="openModal('justice-8.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="justice-8.jpg.jpg" alt="Malcolm X" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Justice and memory</span>
+          <h3 class="poster-title">Malcolm X (1925 - 1965)</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="justice-and-memory" onclick="openModal('justice-9.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="justice-9.jpg.jpg" alt="Periyar E.V. Ramasamy" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Justice and memory</span>
+          <h3 class="poster-title">Periyar E.V. Ramasamy (1879 - 1973)</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="justice-and-memory" onclick="openModal('justice-10.jpg.jpg')">
+        <div class="poster-img-box">
+          <img src="justice-10.jpg.jpg" alt="Bilkis Bano" loading="lazy">
+        </div>
+        <div class="poster-details">
+          <span class="poster-tag">Justice and memory</span>
+          <h3 class="poster-title">Bilkis Bano — Battle for Justice</h3>
         </div>
       </div>
 
     </div>
   </main>
 
-  <!-- Lightbox Modal -->
-  <div id="imageModal" class="modal" onclick="closeModal()">
-    <span class="modal-close">&times;</span>
-    <img id="modalImg" src="" alt="Expanded Poster View">
-  </div>
+  <!-- About Section -->
+  <section class="about-section">
+    <h2>About</h2>
+    <p>
+      Fraternity Movement at the University of Calicut works on campus for equality, dignity and social justice. This page collects our posters in one place. Tap any poster to view it full size. Some posters describe allegations and court cases; they are presented as stated on the posters.
+    </p>
+  </section>
 
-  <footer>
-    <p>Voices of Resistance Poster Archive &copy; 2026. Documenting Courage & Human Rights.</p>
+  <!-- Bottom Footer Bar -->
+  <footer class="bottom-bar">
+    <div class="footer-content">
+      Fraternity Movement · University of Calicut
+    </div>
   </footer>
 
+  <!-- Lightbox Modal -->
+  <div id="imageModal" class="modal-overlay" onclick="closeModal()">
+    <span class="modal-close-btn">&times;</span>
+    <img id="modalImg" src="" alt="Poster Full View">
+  </div>
+
   <script>
-    // Category Filtering Logic
-    function filterCategory(category) {
+    // Category Filter Handler
+    function filterCategory(category, buttonEl) {
       const cards = document.querySelectorAll('.poster-card');
-      const buttons = document.querySelectorAll('.filter-btn');
+      const buttons = document.querySelectorAll('.filter-pill');
 
-      // Update Active Button
       buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      buttonEl.classList.add('active');
 
-      // Filter Cards
       cards.forEach(card => {
         if (category === 'all' || card.getAttribute('data-category') === category) {
           card.style.display = 'flex';
@@ -507,18 +631,12 @@
       });
     }
 
-    // Modal / Lightbox Logic
+    // Modal Lightbox
     function openModal(imgSrc) {
       const modal = document.getElementById('imageModal');
       const modalImg = document.getElementById('modalImg');
       modalImg.src = imgSrc;
-      modal.style.display = 'flex';
+      modal.classList.add('active');
     }
 
-    function closeModal() {
-      document.getElementById('imageModal').style.display = 'none';
-    }
-  </script>
-</body>
-    </html>
-    
+    fu
