@@ -1,301 +1,524 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fraternity Movement | Calicut University Campus</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #0c0c0c; 
-            color: #ffffff; 
-        }
-        .filter-btn {
-            transition: all 0.2s ease;
-        }
-        .filter-btn.active {
-            background-color: #ffffff;
-            color: #000000;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voices of Resistance & Justice — Poster Exhibition</title>
+  <style>
+    :root {
+      --bg-color: #0f1115;
+      --card-bg: #1a1d24;
+      --text-main: #f0f2f5;
+      --text-muted: #9ca3af;
+      --accent: #e63946;
+      --accent-hover: #d62828;
+      --tag-bg: #2a2e39;
+      --border-color: #2e3440;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    header {
+      max-width: 1200px;
+      margin: 40px auto 30px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 15px;
+      letter-spacing: -0.5px;
+    }
+
+    .overview-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 25px;
+      max-width: 900px;
+      margin: 0 auto 40px;
+      text-align: left;
+    }
+
+    .overview-card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .overview-card p {
+      color: #d1d5db;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* Category Filter Buttons */
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .filter-btn {
+      background-color: var(--card-bg);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background-color: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    /* Poster Grid */
+    .poster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1300px;
+      margin: 0 auto 60px;
+    }
+
+    .poster-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .poster-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .poster-img-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 133%; /* 3:4 aspect ratio */
+      background-color: #111;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .poster-img-wrapper img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .poster-card:hover .poster-img-wrapper img {
+      transform: scale(1.04);
+    }
+
+    .poster-info {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .category-tag {
+      align-self: flex-start;
+      background-color: var(--tag-bg);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .poster-info h3 {
+      font-size: 1.1rem;
+      color: #ffffff;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    /* Lightbox Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 90vh;
+      border-radius: 6px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 25px;
+      right: 35px;
+      color: #fff;
+      font-size: 35px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      max-width: 1200px;
+      margin: 0 auto;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
-<body class="min-h-screen px-4 py-6 sm:px-8 max-w-2xl mx-auto space-y-8">
+<body>
 
-    <!-- Header -->
-    <header class="flex justify-between items-start border-b border-gray-800 pb-5">
-        <div>
-            <h1 class="text-2xl font-black tracking-tight leading-none uppercase">Fraternity</h1>
-            <h1 class="text-2xl font-black tracking-tight leading-none uppercase">Movement</h1>
+  <header>
+    <h1>Voices of Resistance & Justice</h1>
+    
+    <!-- Revised Overview (CUK references removed) -->
+    <div class="overview-card">
+      <h2>Exhibition Overview</h2>
+      <p>
+        This digital exhibition curates visual archives, solidarity posters, and biographical profiles documenting ongoing struggles for human rights, constitutional freedoms, political prisoners, and resistance against systemic discrimination. It serves as an archive of memory, dissent, and collective solidarity across academic campuses, grassroots movements, and international human rights causes.
+      </p>
+    </div>
+
+    <!-- Category Filter Controls -->
+    <div class="filter-container">
+      <button class="filter-btn active" onclick="filterCategory('all')">All Posters</button>
+      <button class="filter-btn" onclick="filterCategory('political-prisoners')">Political Prisoners</button>
+      <button class="filter-btn" onclick="filterCategory('justice-and-memory')">Justice & Memory</button>
+      <button class="filter-btn" onclick="filterCategory('movements-and-resistance')">Movements & Resistance</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="poster-grid">
+
+      <!-- ================= POLITICAL PRISONERS ================= -->
+      <div class="poster-card" data-category="political-prisoners">
+        <div class="poster-img-wrapper" onclick="openModal('prisoner-1.jpg')">
+          <img src="prisoner-1.jpg" alt="Prof. Hany Babu" loading="lazy">
         </div>
-        <div class="text-right text-xs text-gray-400 font-medium leading-tight">
-            <p>Calicut University</p>
-            <p>Campus</p>
+        <div class="poster-info">
+          <span class="category-tag">Political Prisoners</span>
+          <h3>Prof. Hany Babu</h3>
         </div>
-    </header>
+      </div>
 
-    <!-- Hero Section -->
-    <section class="space-y-6 pt-2">
-        <h2 class="text-4xl sm:text-5xl font-black tracking-tight uppercase leading-none">
-            REMEMBER.<br>
-            <span class="text-red-600">QUESTION.</span><br>
-            DOCUMENT.
-        </h2>
-        <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
-            Posters from Fraternity Movement at Calicut University Campus on resistance, political prisoners and the people whose struggles we keep in view.
-        </p>
-        <div>
-            <a href="#posters" class="inline-block bg-white text-black font-bold px-5 py-2.5 text-xs uppercase tracking-wider hover:bg-gray-200 transition">
-                View posters
-            </a>
+      <div class="poster-card" data-category="political-prisoners">
+        <div class="poster-img-wrapper" onclick="openModal('prisoner-2.jpg')">
+          <img src="prisoner-2.jpg" alt="Umar Khalid" loading="lazy">
         </div>
-    </section>
-
-    <!-- Interactive Filter Buttons -->
-    <section id="posters" class="space-y-4 pt-4">
-        <div class="flex flex-wrap gap-2 text-xs font-semibold tracking-wider uppercase">
-            <button onclick="filterCategory('all')" id="btn-all" class="filter-btn active border border-white px-4 py-2">
-                All 17
-            </button>
-            <button onclick="filterCategory('palestine')" id="btn-palestine" class="filter-btn border border-white px-4 py-2 hover:bg-white hover:text-black">
-                Palestine
-            </button>
-            <button onclick="filterCategory('prisoners')" id="btn-prisoners" class="filter-btn border border-white px-4 py-2 hover:bg-white hover:text-black">
-                Political prisoners
-            </button>
-            <button onclick="filterCategory('protest')" id="btn-protest" class="filter-btn border border-white px-4 py-2 hover:bg-white hover:text-black">
-                Campus and protest
-            </button>
-            <button onclick="filterCategory('justice')" id="btn-justice" class="filter-btn border border-white px-4 py-2 hover:bg-white hover:text-black">
-                Justice and memory
-            </button>
+        <div class="poster-info">
+          <span class="category-tag">Political Prisoners</span>
+          <h3>Umar Khalid</h3>
         </div>
-    </section>
+      </div>
 
-    <!-- Poster Grid (17 Posters) -->
-    <section class="space-y-8 pt-4">
+      <div class="poster-card" data-category="political-prisoners">
+        <div class="poster-img-wrapper" onclick="openModal('prisoner-3.jpg')">
+          <img src="prisoner-3.jpg" alt="Father Stan Swamy" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Political Prisoners</span>
+          <h3>Father Stan Swamy (1937 - 2021)</h3>
+        </div>
+      </div>
 
-        <!-- PALESTINE (2 Posters) -->
-        <article class="poster-card palestine border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="palestine-1.jpg" alt="Palestinian Resistance" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Palestinian Resistance</h3>
-                <p class="text-gray-400 text-sm">Identity, dignity, freedom</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="political-prisoners">
+        <div class="poster-img-wrapper" onclick="openModal('prisoner-4.jpg')">
+          <img src="prisoner-4.jpg" alt="Stand with Political Prisoners" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Political Prisoners</span>
+          <h3>Solidarity with Political Prisoners</h3>
+        </div>
+      </div>
 
-        <article class="poster-card palestine border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="palestine-2.jpg" alt="Solidarity with Gaza" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Stop the Genocide</h3>
-                <p class="text-gray-400 text-sm">Stand with the Palestinian people</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="political-prisoners">
+        <div class="poster-img-wrapper" onclick="openModal('prisoner-5.jpg.jpg')">
+          <img src="prisoner-5.jpg.jpg" alt="G.N. Saibaba" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Political Prisoners</span>
+          <h3>G.N. Saibaba (1967 - 2024)</h3>
+        </div>
+      </div>
 
-        <!-- POLITICAL PRISONERS (7 Posters) -->
-        <article class="poster-card prisoners border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="prisoner-1.jpg" alt="Free All Political Prisoners" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Free All Political Prisoners</h3>
-                <p class="text-gray-400 text-sm">Dissent is the lifeline of democracy</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="political-prisoners">
+        <div class="poster-img-wrapper" onclick="openModal('prisoner-6.jpg.jpg')">
+          <img src="prisoner-6.jpg.jpg" alt="Gulfisa Fathima" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Political Prisoners</span>
+          <h3>Gulfisa Fathima — A Voice for Justice</h3>
+        </div>
+      </div>
 
-        <article class="poster-card prisoners border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="prisoner-2.jpg" alt="Repeal UAPA" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Repeal UAPA & Draconian Laws</h3>
-                <p class="text-gray-400 text-sm">End state repression on activists</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="political-prisoners">
+        <div class="poster-img-wrapper" onclick="openModal('prisoner-7.jpg.jpg')">
+          <img src="prisoner-7.jpg.jpg" alt="Sharjeel Imam" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Political Prisoners</span>
+          <h3>Sharjeel Imam (1987 - Present)</h3>
+        </div>
+      </div>
 
-        <article class="poster-card prisoners border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="prisoner-3.jpg" alt="Sharjeel Imam & Gulfisha Fatima" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Free Anti-CAA Activists</h3>
-                <p class="text-gray-400 text-sm">Injustice anywhere is a threat to justice everywhere</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="political-prisoners">
+        <div class="poster-img-wrapper" onclick="openModal('prisoner-8.jpg.jpg')">
+          <img src="prisoner-8.jpg.jpg" alt="All India Political Prisoners Day" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Political Prisoners</span>
+          <h3>All India Political Prisoners' Day (September 13)</h3>
+        </div>
+      </div>
 
-        <article class="poster-card prisoners border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="prisoner-4.jpg" alt="Free Umar Khalid" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Stand with Truth & Justice</h3>
-                <p class="text-gray-400 text-sm">Voices that refused to be silenced</p>
-            </div>
-        </article>
 
-        <article class="poster-card prisoners border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="prisoner-5.jpg" alt="Bima Koregaon Prisoners" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Bhima Koregaon Activists</h3>
-                <p class="text-gray-400 text-sm">Release human rights defenders</p>
-            </div>
-        </article>
+      <!-- ================= JUSTICE & MEMORY ================= -->
+      <div class="poster-card" data-category="justice-and-memory">
+        <div class="poster-img-wrapper" onclick="openModal('justice-1.jpg')">
+          <img src="justice-1.jpg" alt="Gauri Lankesh" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Justice & Memory</span>
+          <h3>Gauri Lankesh (1962 - 2017)</h3>
+        </div>
+      </div>
 
-        <article class="poster-card prisoners border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="prisoner-6.jpg" alt="Under-trial Prisoners" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Bail is the Rule</h3>
-                <p class="text-gray-400 text-sm">End indefinite incarceration without trial</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="justice-and-memory">
+        <div class="poster-img-wrapper" onclick="openModal('justice-2.jpg.jpg')">
+          <img src="justice-2.jpg.jpg" alt="Voices Against Injustice" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Justice & Memory</span>
+          <h3>Voices Against Injustice & Impunity</h3>
+        </div>
+      </div>
 
-        <article class="poster-card prisoners border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="prisoner-7.jpg" alt="Journalists & Dissidents" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Journalism is Not a Crime</h3>
-                <p class="text-gray-400 text-sm">Protect freedom of speech and expression</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="justice-and-memory">
+        <div class="poster-img-wrapper" onclick="openModal('justice-3.jpg.jpg')">
+          <img src="justice-3.jpg.jpg" alt="Dissent and Democracy" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Justice & Memory</span>
+          <h3>Dissent, Democracy, and Human Rights</h3>
+        </div>
+      </div>
 
-        <!-- CAMPUS AND PROTEST (4 Posters) -->
-        <article class="poster-card protest border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="protest-1.jpg" alt="Reclaim Campus Democracy" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Reclaim Campus Democracy</h3>
-                <p class="text-gray-400 text-sm">Subaltern voices against hegemonies</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="justice-and-memory">
+        <div class="poster-img-wrapper" onclick="openModal('justice-4.jpg.jpg')">
+          <img src="justice-4.jpg.jpg" alt="Social Justice Principles" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Justice & Memory</span>
+          <h3>Social Justice & Institutional Reform</h3>
+        </div>
+      </div>
 
-        <article class="poster-card protest border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="protest-2.jpg" alt="Student Representation" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Self-Representation & Assertion</h3>
-                <p class="text-gray-400 text-sm">Building subaltern student leadership</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="justice-and-memory">
+        <div class="poster-img-wrapper" onclick="openModal('justice-5.jpg.jpg')">
+          <img src="justice-5.jpg.jpg" alt="Campus Democracy" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Justice & Memory</span>
+          <h3>Campus Democracy & Student Freedoms</h3>
+        </div>
+      </div>
 
-        <article class="poster-card protest border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="protest-3.jpg" alt="Equal Rights on Campus" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Hostel & Campus Rights</h3>
-                <p class="text-gray-400 text-sm">Fight for research facilities and student welfare</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="justice-and-memory">
+        <div class="poster-img-wrapper" onclick="openModal('justice-6.jpg.jpg')">
+          <img src="justice-6.jpg.jpg" alt="Against Discrimination" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Justice & Memory</span>
+          <h3>Resistance Against Institutional Discrimination</h3>
+        </div>
+      </div>
 
-        <article class="poster-card protest border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="protest-4.jpg" alt="Post-Mandal Politics" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">New Campus Politics</h3>
-                <p class="text-gray-400 text-sm">Beyond conventional student movements</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="justice-and-memory">
+        <div class="poster-img-wrapper" onclick="openModal('justice-7.jpg.jpg')">
+          <img src="justice-7.jpg.jpg" alt="Nithin Raj" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Justice & Memory</span>
+          <h3>Nithin Raj (2003 - 2024)</h3>
+        </div>
+      </div>
 
-        <!-- JUSTICE AND MEMORY (4 Posters) -->
-        <article class="poster-card justice border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="justice-1.jpg" alt="Rohith Vemula" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Remembering Rohith Vemula</h3>
-                <p class="text-gray-400 text-sm">Institutional murder & systemic discrimination</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="justice-and-memory">
+        <div class="poster-img-wrapper" onclick="openModal('justice-8.jpg.jpg')">
+          <img src="justice-8.jpg.jpg" alt="Malcolm X" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Justice & Memory</span>
+          <h3>Malcolm X (1925 - 1965)</h3>
+        </div>
+      </div>
 
-        <article class="poster-card justice border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="justice-2.jpg" alt="Najeeb Ahmed" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Where is Najeeb?</h3>
-                <p class="text-gray-400 text-sm">Memory as a form of resistance</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="justice-and-memory">
+        <div class="poster-img-wrapper" onclick="openModal('justice-9.jpg.jpg')">
+          <img src="justice-9.jpg.jpg" alt="E.V. Ramasamy Periyar" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Justice & Memory</span>
+          <h3>E.V. Ramasamy (Periyar) (1879 - 1973)</h3>
+        </div>
+      </div>
 
-        <article class="poster-card justice border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="justice-3.jpg" alt="Anti-CAA Movement Memory" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">The Legacy of Shaheen Bagh</h3>
-                <p class="text-gray-400 text-sm">Resisting citizenship disenfranchisement</p>
-            </div>
-        </article>
+      <div class="poster-card" data-category="justice-and-memory">
+        <div class="poster-img-wrapper" onclick="openModal('justice-10.jpg.jpg')">
+          <img src="justice-10.jpg.jpg" alt="Bilkis Bano" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Justice & Memory</span>
+          <h3>Bilkis Bano — Survivor & Legal Battle for Justice</h3>
+        </div>
+      </div>
 
-        <article class="poster-card justice border border-gray-800 bg-[#121212] rounded-sm overflow-hidden">
-            <div class="p-2 bg-gray-900 border-b border-gray-800">
-                <img src="justice-4.jpg" alt="Justice for Victims of State Terror" class="w-full h-auto object-cover border border-gray-800" onerror="this.src='https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800'">
-            </div>
-            <div class="p-5 space-y-1">
-                <span class="text-xs text-blue-400 font-semibold uppercase tracking-wider">FRATERNITY CALICUT UNIVERSITY</span>
-                <h3 class="text-2xl font-extrabold tracking-tight">Justice & Social Memory</h3>
-                <p class="text-gray-400 text-sm">We will not forget, we will not forgive</p>
-            </div>
-        </article>
 
-    </section>
+      <!-- ================= MOVEMENTS & RESISTANCE ================= -->
+      <div class="poster-card" data-category="movements-and-resistance">
+        <div class="poster-img-wrapper" onclick="openModal('protest-1.jpg')">
+          <img src="protest-1.jpg" alt="CAA-NRC Protests" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Movements & Resistance</span>
+          <h3>CAA-NRC Protests (2019-20)</h3>
+        </div>
+      </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-gray-800 pt-6 text-xs text-gray-500 text-center pb-8">
-        <p>Fraternity Movement Calicut University Campus</p>
-    </footer>
+      <div class="poster-card" data-category="movements-and-resistance">
+        <div class="poster-img-wrapper" onclick="openModal('protest-2.jpg')">
+          <img src="protest-2.jpg" alt="Anagha Shashi" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Movements & Resistance</span>
+          <h3>Anagha Shashi — Resistance Against Campus Discrimination</h3>
+        </div>
+      </div>
 
-    <!-- Filter JS Script -->
-    <script>
-        function filterCategory(category) {
-            // Remove active style from all buttons
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active style to selected button
-            document.getElementById('btn-' + category).classList.add('active');
+      <div class="poster-card" data-category="movements-and-resistance">
+        <div class="poster-img-wrapper" onclick="openModal('protest-3.jpg')">
+          <img src="protest-3.jpg" alt="Rohith Vemula" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Movements & Resistance</span>
+          <h3>Rohith Vemula (1989 - 2016)</h3>
+        </div>
+      </div>
 
-            // Show or hide poster cards
-            const cards = document.querySelectorAll('.poster-card');
-            cards.forEach(card => {
-                if (category === 'all' || card.classList.contains(category)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+      <div class="poster-card" data-category="movements-and-resistance">
+        <div class="poster-img-wrapper" onclick="openModal('palestine-1.jpg')">
+          <img src="palestine-1.jpg" alt="Palestinian Resistance" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Movements & Resistance</span>
+          <h3>Palestinian Resistance — Identity, Dignity, Freedom</h3>
+        </div>
+      </div>
+
+      <div class="poster-card" data-category="movements-and-resistance">
+        <div class="poster-img-wrapper" onclick="openModal('palestine-2.jpg.jpg')">
+          <img src="palestine-2.jpg.jpg" alt="Displaced Palestinian Children" loading="lazy">
+        </div>
+        <div class="poster-info">
+          <span class="category-tag">Movements & Resistance</span>
+          <h3>Displaced Children of Palestine — Resilience & Rights</h3>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="modal-close">&times;</span>
+    <img id="modalImg" src="" alt="Expanded Poster View">
+  </div>
+
+  <footer>
+    <p>Voices of Resistance Poster Archive &copy; 2026. Documenting Courage & Human Rights.</p>
+  </footer>
+
+  <script>
+    // Category Filtering Logic
+    function filterCategory(category) {
+      const cards = document.querySelectorAll('.poster-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      // Update Active Button
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Filter Cards
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
         }
-    </script>
+      });
+    }
+
+    // Modal / Lightbox Logic
+    function openModal(imgSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImg');
+      modalImg.src = imgSrc;
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+  </script>
 </body>
-          </html>
-          
+    </html>
+    
